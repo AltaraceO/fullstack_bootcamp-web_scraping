@@ -1,0 +1,31 @@
+{
+  "name": "fullstack_bootcamp-web_scraping",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AltaraceO/fullstack_bootcamp-web_scraping.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AltaraceO/fullstack_bootcamp-web_scraping/issues"
+  },
+  "homepage": "https://github.com/AltaraceO/fullstack_bootcamp-web_scraping#readme",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "concurrently": "^7.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.2",
+    "mongodb": "^4.3.1",
+    "mongoose": "^6.1.8",
+    "nodemon": "^2.0.15",
+    "path": "^0.12.7"
+  }
+}
