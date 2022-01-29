@@ -1,6 +1,7 @@
 import "./App.css";
 import url from "./api/Api";
 import React, { useState } from "react";
+import { Holiday } from "./components /Holiday";
 
 function App() {
   const [headlines, setHeadlines] = useState();
@@ -29,6 +30,7 @@ function App() {
           );
         })}
       <button onClick={onHandleClick}>Get Headlines</button>
+      <Holiday />
     </>
   );
 }
