@@ -20,25 +20,32 @@ app.get("/", async (req, res) => {
   //* this'll take a full page screenshot of the goto webpage
   // await page.screenshots({ path: "amazing.png", fullPage:true });
 
-  // const headlines = await page.evaluate(() => {
-  //   return Array.from(document.querySelectorAll(".fc-item__title")).map(
-  //     (x) => x.textContent
-  //   );
-  // });
+  //*Using $$eval
   // const headlines = await page.$$eval(".fc-item__title", (headlines) => {
-  //   return headlines.map(
-  //     (curr) =>
-  //       curr.textContent
-  //          Strip new line and tab spaces
-  //         .replace(/(\r\n\t|\n|\r|\t)/gm, "")
-  //         .trim()
-  //     .jsonValue()
+  //   return headlines.map((curr) =>
+  //     curr.textContent
+  //       //  Strip new line and tab spaces
+  //       .replace(/(\r\n\t|\n|\r|\t)/gm, "")
+  //       .trim()
   //   );
   // });
 
-  const headlines = await page.evaluate(() =>
-    Array.from(document.querySelectorAll(".fc-item__title"), (e) => e.innerText)
-  );
+  //* using .evaluate
+  // const headlines = await page.evaluate(() =>
+  //   Array.from(document.querySelectorAll(".fc-item__title"), (e) => e.innerText)
+  // );
+  const headlines = await page.evaluate(() => {
+    let results = [];
+    let items = document.querySelectorAll(".fc-item__title");
+    console.log(items);
+    items.forEach((i) => {
+      results.push({
+        url: i.querySelector("a").href,
+        text: i.innerText,
+      });
+    });
+    return results;
+  });
 
   res.send(headlines);
 
@@ -47,11 +54,6 @@ app.get("/", async (req, res) => {
 
   // const stringTitles = JSON.stringify(headlines);
 
-  // const allTitles = headlines.map((line) => {
-  //   line;
-  // });
-  // console.log(typeof allTitles, allTitles);
-  // // res.send(typeof stringTitles);
   // await fs.writeFile("text.txt,", headlines.join("\r\n"));
 
   await browser.close();
