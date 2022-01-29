@@ -9,7 +9,6 @@ export const Holiday = () => {
     try {
       const data = await url.get("/table");
       setRawData(data.data);
-      console.log(JSON.stringify(data.data));
     } catch (e) {
       console.log("Something went wrong", e);
     }
@@ -24,15 +23,14 @@ export const Holiday = () => {
         rawData.map((e, idx) => {
           return (
             <div key={idx}>
-              <p>On these dates - {e.values[0]}</p>
-              <p>Celebrate {e.values[1]}</p>
-              <Wiki value={e.values[1]} />
+              <p>On - {e.date}</p>
+              <p> {e.values[e.values.length - 2]}</p>
+              <Wiki value={e.values[e.values.length - 2]} />
               <hr />
             </div>
           );
         })}
       <button onClick={onHandleClick}>GetData</button>
-      {/* <Wiki /> */}
     </>
   );
 };

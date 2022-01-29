@@ -80,28 +80,34 @@ app.get("/", async (req, res) => {
 // pup();
 
 app.get("/table", async (req, res) => {
-  // class="s-lib-box-content"
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto("https://libguides.webster.edu/c.php?g=98058&p=8023246");
+  // await page.goto("https://libguides.webster.edu/c.php?g=98058&p=8023246");
+  await page.goto("https://www.timeanddate.com/holidays/");
 
   const rawData = await page.evaluate(() => {
     let data = [];
+    // let table = document.querySelector(
+    //   "#s-lg-content-58625124 > table > tbody > tr:nth-child(1) > td:nth-child(1) > table > tbody"
+    // );
     let table = document.querySelector(
-      "#s-lg-content-58625124 > table > tbody > tr:nth-child(1) > td:nth-child(1) > table > tbody"
+      "body > div.main-content-div > div.main-content-div > main > div > section > article.table-data > section > table > tbody"
     );
 
+    let date;
     for (let i = 1; i < table.rows.length; i++) {
       let objCells = table.rows.item(i).cells;
-
       let values = [];
 
       for (let j = 0; j < objCells.length; j++) {
+        if (objCells.length > 3 && j === 0) {
+          date = objCells.item(j).innerHTML;
+        }
         let text = objCells.item(j).innerHTML;
 
         values.push(text);
       }
-      let d = { i, values };
+      let d = { date, values };
       data.push(d);
     }
 
